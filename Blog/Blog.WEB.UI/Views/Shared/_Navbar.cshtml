@@ -1,0 +1,25 @@
+﻿@{
+    string memberEmail = ViewBag.memberEmail;
+}
+
+<nav class="row site-nav higgerNarrower navbar-fixed-top">
+    <span id="brand">[ABS] Artem's blog system</span>
+    <span id="show-menu-btn" class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+    <ul>
+        <li>@Html.ActionLink("POSTS", "Index", "Articles")</li>
+
+        @if (memberEmail != null)
+                    {
+                        <li class="menu-down"><a class="dropdown-toggle" href="#">@memberEmail￬</a>
+                            <ul>
+                                <li>@Html.ActionLink("My account", "Index", "MyAccount")</li>
+                                <li>@Html.ActionLink("Log out", "Logout", "Home")</li>
+                            </ul>
+                        </li>
+        }
+                   else
+                   {
+                    <li>@Html.ActionLink("SIGN IN/SIGN UP", "Index", "Home")</li>
+        }
+    </ul>
+</nav>

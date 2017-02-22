@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Articles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<Blog.WEB.UI.Models.Category> categories = ViewBag.categories;
+}
+
+@section Style{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Pages/articles.css")"/>
+}
+
+@section Body{
+    @Html.Partial("_Navbar")
+    <section class="content">
+        <div class="row">
+            <section class="col-sm-9">
+                @Html.Action("ShowArticles")
+                <nav class="pager-block">
+                    <ul class="pager">
+                        <li class="disabled"><a href="#">Previous</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </section>
+            <aside class="col-sm-3">
+                @Html.Partial("_SearchPost")
+                @Html.Partial("_PopularPosts")
+                @Html.Partial("_Categories",categories)
+            </aside>
+        </div>
+    </section>
+}
+
+@section Scripts{
+    <script src="~/Scripts/Pages/index.js"></script>
+}

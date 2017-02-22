@@ -1,0 +1,51 @@
+.change-email input, .change-password input {
+  width: 50%;
+}
+
+.add-new-post .panel {
+  float: left;
+}
+
+.categories-panel, .title-panel {
+  width: 33.3%;
+}
+
+.content-panel {
+  width: 100%;
+}
+
+.add-post-big-image img {
+  width: 100%;
+  display: none;
+  max-height: 300px;
+}
+
+.add-new-post-mng-btns {
+  margin: 10px 0;
+}
+
+.title-panel .alert, .contet-panel .alert {
+  padding: 2px;
+  margin: 2px 0;
+}
+
+#sub-settings {
+  margin-top: 10px;
+}
+
+#settings:hover #sub-settings {
+  display: block;
+}
+
+.selected {
+  background-color: lightgray;
+}
+
+.add-new-post,
+.rough-copies,
+.change-email,
+.change-password,
+.change-user-photo,
+#sub-settings {
+  display: none;
+}

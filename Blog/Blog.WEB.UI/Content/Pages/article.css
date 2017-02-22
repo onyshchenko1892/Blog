@@ -1,0 +1,118 @@
+article {
+  background-color: white;
+  margin-bottom: 20px;
+}
+article .title {
+  font-size: 2.8rem;
+  padding: 2.5%;
+  font-family: Georgia, Times, "Times New Roman", serif;
+}
+article .meta-data {
+  padding: 0 2.5% 2.5% 2.5%;
+}
+article .post-date,
+article .category,
+article .number-comments {
+  float: left;
+  margin-right: 10px;
+}
+article .post-date span,
+article .category span,
+article .number-comments span {
+  margin-right: 10px;
+}
+article .img img {
+  width: 100%;
+  max-height: 400px;
+}
+article .more-content {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 1.5% 2.5%;
+  line-height: 1.5;
+}
+
+.comments {
+  padding: 1.5%;
+}
+.comments .num-comments {
+  float: left;
+  width: 100%;
+  margin: 10px 0;
+}
+.comments .user-name {
+  color: #F69087;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.comments .publish-date {
+  color: #70a1bd;
+  font-weight: bold;
+}
+.comments li {
+  padding: 5%;
+}
+
+.media {
+  min-height: 100px;
+  width: 100%;
+}
+
+.media-object {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+}
+
+.media-body p {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 1.5% 2.5%;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  border: 1px solid gray;
+  border-radius: 3px;
+  background-color: #F9F9F9;
+}
+
+.reply-link {
+  display: block;
+  padding: 5px 0;
+}
+
+.add-comment button {
+  margin: 10px 0;
+}
+
+.add-comment .form-control {
+  padding: 15px;
+  float: left;
+}
+
+.flag {
+  background-color: #70a1bd;
+  margin-left: -20px;
+  min-width: 200px;
+  height: 2.8rem;
+  position: relative;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  float: left;
+  text-align: left;
+  display: table;
+  text-indent: 30px;
+}
+.flag span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.flag:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-top: 1.4rem solid transparent;
+  border-right: 13px solid white;
+  border-bottom: 1.4rem solid transparent;
+}

@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Article";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Blog.WEB.UI.Models.Article article = ViewBag.article;
+    int numOfComments = ViewBag.numOfComments;
+    string memberEmail = ViewBag.memberEmail;
+    string memberAvatar = ViewBag.memberAvatar;
+    IEnumerable<Blog.WEB.UI.Models.Category> categories = ViewBag.categories;
+}
+
+@section Style{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Pages/article.css")"/>
+}
+
+@section Body{ 
+   @Html.Partial("_Navbar")
+    <section class="content">
+        <div class="row">
+            <section class="col-sm-9">
+                <article art-mediaFileId="@article.ArticleId">
+                    <div class="title">
+                        @article.Title
+                    </div>
+                    <div class="meta-data">
+                        <div class="post-date">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>@article.PublishDate.Value.ToShortDateString()
+                        </div>
+                        <div class="category">
+                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>@article.Category
+                        </div>
+                        <div class="number-comments">
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>@numOfComments Comments
+                        </div>
+                    </div>
+                    @if (article.ArticleCover != "")
+                    {
+                        <div class="img img-responsive">
+                            <img src="@Url.Content("~/Images/" + article.ArticleCover)"/>
+                        </div>
+                    }
+                    <div class="more-content">
+                        @Html.Raw(article.Content)
+                    </div>
+                    <div class="comments">
+                        <div class="num-comments">
+                            <div class="flag">
+                                <span>@numOfComments Comments </span>
+                            </div>
+                        </div>
+                        @Html.Action("ShowComments", "Article", new { articleID = @article.ArticleId })
+                        @if (memberEmail != null)
+                        {
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="@Url.Content("~/Images/" + @memberAvatar)">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><span class="comment-user-name">@memberEmail</span></h4>
+                                    <div class="add-comment">
+                                        <textarea class="form-control" id="add-comment-content" placeholder="Write your comment..."></textarea>
+                                        <button type="button" class="btn btn-success" id="add-comment">Add comment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </article>
+            </section>
+            <aside class="col-sm-3">
+                @Html.Partial("_SearchPost")
+                @Html.Partial("_PopularPosts")
+                @Html.Partial("_Categories",categories)
+            </aside>
+        </div>
+    </section>
+}
+
+@section Scripts{
+    <script src="~/Scripts/Pages/article.js"></script>
+}

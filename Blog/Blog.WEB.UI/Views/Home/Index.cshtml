@@ -1,0 +1,24 @@
+﻿@using System.Web.Optimization
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Pages/index.css")"/>
+}
+
+@section Body{
+    <section class="content">
+        <div class="row">
+           @Html.Partial("_SignIn") 
+           @Html.Partial("_SignUp")
+        </div>
+    </section>
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Pages/index.js"></script>
+}
+

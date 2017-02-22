@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="db_blog_model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="db_blog_modelStoreContainer">
+          <EntitySet Name="Article" EntityType="db_blog_model.Store.Article" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Category" EntityType="db_blog_model.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Comment" EntityType="db_blog_model.Store.Comment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MediaFile" EntityType="db_blog_model.Store.MediaFile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Member" EntityType="db_blog_model.Store.Member" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Article__Article__0697FACD" Association="db_blog_model.Store.FK__Article__Article__0697FACD">
+            <End Role="MediaFile" EntitySet="MediaFile" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Article__Categor__05A3D694" Association="db_blog_model.Store.FK__Article__Categor__05A3D694">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Article__MemberI__04AFB25B" Association="db_blog_model.Store.FK__Article__MemberI__04AFB25B">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Article__11158940" Association="db_blog_model.Store.FK__Comment__Article__11158940">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__MemberI__1209AD79" Association="db_blog_model.Store.FK__Comment__MemberI__1209AD79">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_Member" Association="db_blog_model.Store.FK_Member_Member">
+            <End Role="MediaFile" EntitySet="MediaFile" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="ArticleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ArticleCover" Type="int" />
+          <Property Name="PublishDate" Type="date" />
+          <Property Name="Content" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleId" Type="int" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="PublishDate" Type="date" Nullable="false" />
+          <Property Name="Content" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MediaFile">
+          <Key>
+            <PropertyRef Name="MediaFileId" />
+          </Key>
+          <Property Name="MediaFileId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="UserPhoto" Type="int" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Article__Article__0697FACD">
+          <End Role="MediaFile" Type="db_blog_model.Store.MediaFile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Article" Type="db_blog_model.Store.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaFile">
+              <PropertyRef Name="MediaFileId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="ArticleCover" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Article__Categor__05A3D694">
+          <End Role="Category" Type="db_blog_model.Store.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Article" Type="db_blog_model.Store.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Article__MemberI__04AFB25B">
+          <End Role="Member" Type="db_blog_model.Store.Member" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Article" Type="db_blog_model.Store.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Article__11158940">
+          <End Role="Article" Type="db_blog_model.Store.Article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comment" Type="db_blog_model.Store.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__MemberI__1209AD79">
+          <End Role="Member" Type="db_blog_model.Store.Member" Multiplicity="1" />
+          <End Role="Comment" Type="db_blog_model.Store.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_Member">
+          <End Role="MediaFile" Type="db_blog_model.Store.MediaFile" Multiplicity="1" />
+          <End Role="Member" Type="db_blog_model.Store.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaFile">
+              <PropertyRef Name="MediaFileId" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="UserPhoto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetNextIndenitityForMediaFile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_blog_model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Article" EntityType="db_blog_model.Article" />
+          <EntitySet Name="Category" EntityType="db_blog_model.Category" />
+          <EntitySet Name="Comment" EntityType="db_blog_model.Comment" />
+          <EntitySet Name="MediaFile" EntityType="db_blog_model.MediaFile" />
+          <EntitySet Name="Member" EntityType="db_blog_model.Member" />
+          <AssociationSet Name="FK__Article__Article__0697FACD" Association="db_blog_model.FK__Article__Article__0697FACD">
+            <End Role="MediaFile" EntitySet="MediaFile" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Article__Categor__05A3D694" Association="db_blog_model.FK__Article__Categor__05A3D694">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Article__MemberI__04AFB25B" Association="db_blog_model.FK__Article__MemberI__04AFB25B">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Article__11158940" Association="db_blog_model.FK__Comment__Article__11158940">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__MemberI__1209AD79" Association="db_blog_model.FK__Comment__MemberI__1209AD79">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_Member" Association="db_blog_model.FK_Member_Member">
+            <End Role="MediaFile" EntitySet="MediaFile" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+          <FunctionImport Name="GetNextIndenitityForMediaFile" ReturnType="Collection(Decimal)" />
+        </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="ArticleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ArticleCover" Type="Int32" />
+          <Property Name="PublishDate" Type="DateTime" Precision="0" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="MediaFile" Relationship="db_blog_model.FK__Article__Article__0697FACD" FromRole="Article" ToRole="MediaFile" />
+          <NavigationProperty Name="Category" Relationship="db_blog_model.FK__Article__Categor__05A3D694" FromRole="Article" ToRole="Category" />
+          <NavigationProperty Name="Member" Relationship="db_blog_model.FK__Article__MemberI__04AFB25B" FromRole="Article" ToRole="Member" />
+          <NavigationProperty Name="Comment" Relationship="db_blog_model.FK__Comment__Article__11158940" FromRole="Article" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Article" Relationship="db_blog_model.FK__Article__Categor__05A3D694" FromRole="Category" ToRole="Article" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Article" Relationship="db_blog_model.FK__Comment__Article__11158940" FromRole="Comment" ToRole="Article" />
+          <NavigationProperty Name="Member" Relationship="db_blog_model.FK__Comment__MemberI__1209AD79" FromRole="Comment" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="MediaFile">
+          <Key>
+            <PropertyRef Name="MediaFileId" />
+          </Key>
+          <Property Name="MediaFileId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Article" Relationship="db_blog_model.FK__Article__Article__0697FACD" FromRole="MediaFile" ToRole="Article" />
+          <NavigationProperty Name="Member" Relationship="db_blog_model.FK_Member_Member" FromRole="MediaFile" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="UserPhoto" Type="Int32" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="db_blog_model.FK__Article__MemberI__04AFB25B" FromRole="Member" ToRole="Article" />
+          <NavigationProperty Name="Comment" Relationship="db_blog_model.FK__Comment__MemberI__1209AD79" FromRole="Member" ToRole="Comment" />
+          <NavigationProperty Name="MediaFile" Relationship="db_blog_model.FK_Member_Member" FromRole="Member" ToRole="MediaFile" />
+        </EntityType>
+        <Association Name="FK__Article__Article__0697FACD">
+          <End Role="MediaFile" Type="db_blog_model.MediaFile" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Article" Type="db_blog_model.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaFile">
+              <PropertyRef Name="MediaFileId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="ArticleCover" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Article__Categor__05A3D694">
+          <End Role="Category" Type="db_blog_model.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Article" Type="db_blog_model.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Article__MemberI__04AFB25B">
+          <End Role="Member" Type="db_blog_model.Member" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Article" Type="db_blog_model.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Article__11158940">
+          <End Role="Article" Type="db_blog_model.Article" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comment" Type="db_blog_model.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__MemberI__1209AD79">
+          <End Role="Member" Type="db_blog_model.Member" Multiplicity="1" />
+          <End Role="Comment" Type="db_blog_model.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_Member">
+          <End Role="MediaFile" Type="db_blog_model.MediaFile" Multiplicity="1" />
+          <End Role="Member" Type="db_blog_model.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaFile">
+              <PropertyRef Name="MediaFileId" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="UserPhoto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_blog_modelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Article">
+            <EntityTypeMapping TypeName="db_blog_model.Article">
+              <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ArticleCover" ColumnName="ArticleCover" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="db_blog_model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="db_blog_model.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaFile">
+            <EntityTypeMapping TypeName="db_blog_model.MediaFile">
+              <MappingFragment StoreEntitySet="MediaFile">
+                <ScalarProperty Name="MediaFileId" ColumnName="MediaFileId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member">
+            <EntityTypeMapping TypeName="db_blog_model.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetNextIndenitityForMediaFile" FunctionName="db_blog_model.Store.GetNextIndenitityForMediaFile" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
